@@ -1,28 +1,37 @@
 import React, { Component } from 'react'
+import Events from '../components/events';
+import { connect } from 'react-redux'
+import fetchEvents from '../actions/fetchEvents'
 
-export default class EventsContainer extends Component {
-    state={
-        events: ''
-    }
+
+
+ class EventsContainer extends Component {
+
     componentDidMount () {
-        window.fetch('/api/events')
-        .then(response => response.json())
-        .then(data => {
-        this.setState({
-            events: data
-            })
-        })
+        this.props.getEvents()
     }
-     handleClick() {
-        document.getElementsByClassName('events').text = this.state.events[0].name
-     }
+    
+
     render() {
-        console.log(this.state)
         return (
-            <div>
-                <button onClick={this.handleClick}>Click me</button>
-                <div className="events"></div>
+            <div> 
+                <Events events={this.props.events}/>
             </div>
         )
     }
 }
+
+    const mapStateToProps = (state) => {
+        return {
+            events: state.events
+        }
+    }
+
+    const mapDispatchToProps = dispatch => {
+        return{
+            getEvents: () => dispatch(fetchEvents())
+        }
+    }
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventsContainer)
