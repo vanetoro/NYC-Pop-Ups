@@ -7,7 +7,6 @@ function Events(props) {
     return (
         <div>
             {event}
-            This the events component
         </div>
     )
 }
