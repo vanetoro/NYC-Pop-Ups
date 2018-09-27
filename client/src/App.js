@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import EventsContainer from './containers/eventsContainer';
+import NavBar from './components/navbar';
 
 
 class App extends Component {
@@ -10,6 +11,7 @@ class App extends Component {
 
     return (
       <div className="App">
+       <NavBar />
        <EventsContainer />
       </div>
     );
@@ -17,9 +19,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-// let nextArtistinfo = $.getJSON(`/artists/${artist.id}/next_artist`)
-// nextArtistinfo.done(function(nextArtistJSON){
-//   $("#nextArtist").attr("data-id",nextArtistJSON.id)
-// })
