@@ -7,3 +7,12 @@ export default function fetchEvents() {
     }
 }
 
+export function fetchEvent(id) {
+    return(dispatch) => {
+        dispatch({type: 'LOADING'})
+        return window.fetch(`/api/events/${id}`)
+        .then(response => response.json())
+        .then(data => dispatch({type: 'FETCH_EVENT', data}))
+    }
+}
+
