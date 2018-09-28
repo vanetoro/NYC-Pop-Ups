@@ -1,0 +1,20 @@
+.modal-container {
+    position: relative;
+    color: black
+  }
+
+  .modal-container .modal, .modal-container .modal-backdrop {
+    position: absolute;
+  }
+
+  .modal-backdrop {
+    opacity: 0.5;
+}
+
+.modal.fade.in {
+    opacity: 1;
+}
+
+.modal.fade.in .modal-dialog {
+    transform: translate(0,0);
+}
