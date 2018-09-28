@@ -16,6 +16,7 @@ class EventsController < ApiController
   # POST /events
   def create
     @event = Event.new(event_params)
+    binding.pry
 
     if @event.save
       render json: @event, status: :created, location: @event

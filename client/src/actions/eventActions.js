@@ -16,11 +16,11 @@ export function fetchEvent(id) {
     }
 }
 export function postEvent(state) {
-    debugger
+    // debugger
     let body = JSON.stringify(state)
     return(dispatch) => {
         dispatch({type: 'LOADING'})
-        return window.fetch(`/api/events`,{
+        return window.fetch(`/api/events/`,{
             method: 'POST',
             headers: {
                 "Content-Type": 'application/json'
