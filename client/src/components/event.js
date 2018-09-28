@@ -3,6 +3,11 @@ import Moment from 'react-moment';
 
 
 function Event(props) {
+
+   const handleClick = (e)=> {
+        e.preventDefault()
+    }
+
     return (
         <div className="col-8">
         <div className='card' style={{width: "19rem"}}>
@@ -10,7 +15,7 @@ function Event(props) {
             <p>Address: {props.event.location} </p>
             {/* <p>Start Date: <Moment format='MMMM dd YYYY'>{props.event.start_date}</Moment></p>  */}
             {/* <p>End Date: <Moment format='MMMM dd YYYY'>{props.event.end_date}</Moment></p>  */}
-            <a href="#" class="btn btn-primary">See More</a>
+            <a href="#" class="btn btn-primary" onClick={handleClick}>See More</a>
         </div>
         </div>
     )
