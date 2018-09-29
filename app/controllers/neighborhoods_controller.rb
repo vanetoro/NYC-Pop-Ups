@@ -1,12 +1,12 @@
 class NeighborhoodsController < ApplicationController
   # before_action :set_neighborhood, only: [:show, :update, :destroy]
 
-  # # GET /neighborhoods
-  # def index
-  #   @neighborhoods = Neighborhood.all
+  # GET /neighborhoods
+  def index
+    @neighborhoods = Neighborhood.all
 
-  #   render json: @neighborhoods
-  # end
+    render json: @neighborhoods
+  end
 
   # # GET /neighborhoods/1
   # def show
