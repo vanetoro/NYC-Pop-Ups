@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Events from '../components/events';
 import { connect } from 'react-redux'
-import fetchEvents, { fetchEvent, postEvent } from '../actions/eventActions'
+import fetchEvents, { fetchEvent, postEvent, getHoods } from '../actions/eventActions'
 import NewEvent from '../components/newEvent';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ShowEvent from '../components/showEvent';
@@ -13,11 +13,13 @@ import '../eventsContainer.css'
     
     componentDidMount () {
         this.props.getEvents()
+
     }
 
     handleClick(e){
         e.preventDefault()
         this.props.addEvent()
+        this.props.getHoods()
     }
     
 
@@ -32,7 +34,7 @@ import '../eventsContainer.css'
                 </React.Fragment>
             </Router>
             <Button bsStyle="primary" onClick={this.handleClick.bind(this)}>Add Event</Button>
-            <NewEvent show={this.props.show} postEvent={this.props.postEvent}/>
+            <NewEvent show={this.props.show} postEvent={this.props.postEvent} hoods={this.props.hoods}/>
         </div>
         )
     }
@@ -41,7 +43,8 @@ import '../eventsContainer.css'
     const mapStateToProps = (state) => {
         return {
             events: state.events,
-            show: state.show
+            show: state.show,
+            hoods: state.hoods
         }
     }
 
@@ -50,7 +53,8 @@ import '../eventsContainer.css'
             getEvents: () => dispatch(fetchEvents()),
             getEvent: (id) => dispatch(fetchEvent(id)),
             addEvent: () => dispatch({type: 'ADD_EVENT'}),
-            postEvent: (state) => dispatch(postEvent(state))
+            postEvent: (state) => dispatch(postEvent(state)),
+            getHoods: () => dispatch(getHoods())
         }
     }
 
