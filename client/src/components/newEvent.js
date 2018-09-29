@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Button, FormControl } from 'react-bootstrap';
+import { Modal, Button, FormControl, DropdownButton, MenuItem, ButtonToolbar } from 'react-bootstrap';
 import '../eventsContainer.css'
 
 class NewEvent extends React.Component {
@@ -28,8 +28,10 @@ class NewEvent extends React.Component {
         this.props.postEvent(this.state)
     }
 
+
     render() {
-        console.log(this.state)
+        let hoods = this.props.hoods.map(hood => <MenuItem eventKey={hood.id}>{hood.name}</MenuItem>)
+        console.log(this)
         return (
             <Modal show={this.props.show}>
                 <div className="modal-container">
@@ -63,7 +65,13 @@ class NewEvent extends React.Component {
                                 name= 'endDate' 
                                 id= 'endDate' 
                                 onChange={this.handleChange.bind(this)}/>
+                                <ButtonToolbar>
+                                <DropdownButton eventKey={1} title='Choose a Neighborhood' id='dropDown'> 
+                                {hoods}
+                                </DropdownButton>
+                                </ButtonToolbar> 
                             </form>
+                            
                     </Modal.Body>
 
                     <Modal.Footer>
