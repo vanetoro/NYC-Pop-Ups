@@ -6,6 +6,14 @@ export default function fetchEvents() {
         .then(data => dispatch({type: 'FETCH_EVENTS', data}))
     }
 }
+export function getHoods() {
+    return(dispatch) => {
+        dispatch({type: 'LOADING'})
+        return window.fetch('/api/neighborhoods')
+        .then(response => response.json())
+        .then(data => dispatch({type: 'FETCH_HOODS', data}))
+    }
+}
 
 export function fetchEvent(id) {
     return(dispatch) => {
