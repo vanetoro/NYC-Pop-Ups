@@ -16,7 +16,7 @@ class EventsController < ApiController
   # POST /events
   def create
     @event = Event.new(event_params)
-    binding.pry
+    # binding.pry
 
     if @event.save
       render json: @event, status: :created, location: @event
@@ -47,6 +47,6 @@ class EventsController < ApiController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:location, :start_date, :end_date, :price)
+      params.require(:event).permit(:location, :start_date, :end_date, :price, :name)
     end
 end

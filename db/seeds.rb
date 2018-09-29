@@ -15,6 +15,8 @@ mad_hatter = Event.create(name: "Mad Hatter's G&T Party", location: '73 Morgan A
 
 manhattan = Neighborhood.create(name: 'Manhattan')
 brooklyn = Neighborhood.create(name: 'Brooklyn')
+queens = Neighborhood.create(name: 'Queens')
+bronx = Neighborhood.create(name:'Bronx')
 
 mad_hatter.neighborhood = brooklyn
 magic_lab.neighborhood = manhattan
