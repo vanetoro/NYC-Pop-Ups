@@ -1,15 +1,26 @@
 import React from 'react'
-import { NavLink } from "react-router-dom";
+import { Navbar, NavItem, Nav } from 'react-bootstrap';
+import { NavLink} from 'react-router-dom';
 
 function NavBar() {
     return (
-    
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <NavLink to='/' extact className="nav-link" >Home <span class="sr-only">(current)</span></NavLink>
-            <NavLink to='/events/:id' className="nav-link" href="#">All Pop-Ups</NavLink>
-            <NavLink to='/events/new/' exact className="nav-link" href="#">Enter New Pop-Up</NavLink>
-
-        </nav>
+        <Navbar >
+            <Navbar.Brand>NYC Pop-Ups</Navbar.Brand>
+            <Nav>
+            <NavItem>
+                <NavLink to='/' extact className="nav-link" >CURRENT <span class="sr-only">(current)</span></NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink to='/events/:id' className="nav-link" href="#">UPCOMING</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink to='/events/:id' className="nav-link" href="#">PAST</NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink to='/events/new/' exact className="nav-link" href="#">ENTER NEW POP-UP</NavLink>
+            </NavItem>
+            </Nav>
+        </Navbar>
     )
 }
 
