@@ -18,15 +18,15 @@ import '../eventsContainer.css'
 
     handleClick(e){
         e.preventDefault()
-        this.props.addEvent()
         this.props.getHoods()
+        this.props.showNewEventForm()
     }
     
 
     render() {
 
         return (
-        <div> 
+        <div id='eventsContainer'> 
             <Router>
                 <React.Fragment>
                     <Route exact path='/' render={()=> <Events events={this.props.events}/>} />
@@ -34,7 +34,12 @@ import '../eventsContainer.css'
                 </React.Fragment>
             </Router>
             <Button bsStyle="primary" onClick={this.handleClick.bind(this)}>Add Event</Button>
-            <NewEvent show={this.props.show} postEvent={this.props.postEvent} hoods={this.props.hoods}/>
+            <NewEvent 
+                show={this.props.show} 
+                postEvent={this.props.postEvent} 
+                showNewEventForm={this.props.showNewEventForm}
+                neighborhoods={this.props.hoods}
+            />
         </div>
         )
     }
@@ -52,7 +57,7 @@ import '../eventsContainer.css'
         return{
             getEvents: () => dispatch(fetchEvents()),
             getEvent: (id) => dispatch(fetchEvent(id)),
-            addEvent: () => dispatch({type: 'ADD_EVENT'}),
+            showNewEventForm: () => dispatch({type: 'ADD_EVENT'}),
             postEvent: (state) => dispatch(postEvent(state)),
             getHoods: () => dispatch(getHoods())
         }
