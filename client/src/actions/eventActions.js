@@ -24,8 +24,9 @@ export function fetchEvent(id) {
     }
 }
 export function postEvent(state) {
-    // debugger
+    state = {...state, neighborhood_id: state.neighborhood.id}
     let body = JSON.stringify(state)
+    debugger
     return(dispatch) => {
         dispatch({type: 'LOADING'})
         return window.fetch(`/api/events/`,{
