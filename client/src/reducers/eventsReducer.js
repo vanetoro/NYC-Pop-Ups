@@ -9,7 +9,7 @@ export default function eventsReducer(state = {
         case 'FETCH_EVENT':
             return{...state, events: action.data}
         case 'ADD_EVENT':
-            return{...state, show: true} 
+            return{...state, show: !state.show} 
         case 'FETCH_HOODS':
         return {...state, hoods: action.data}   
         default:
