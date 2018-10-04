@@ -7,24 +7,42 @@ class EventsController < ApiController
 
     render json: @events
   end
+  
+  def upcoming
+    @events = Event.upcoming_events
+    
+    render json: @events
+  end 
+
+  def past
+
+    @events = Event.past_events
+    
+    render json: @events
+  end 
+
 
   # GET /events/1
-  def show
-    render json: @event
-  end
 
+  # def show
+  #   render json: @event
+  # end
+  
   # POST /events
   def create
+    binding.pry
     @event = Event.new(event_params)
-    # binding.pry
-
-    if @event.save
-      render json: @event, status: :created, location: @event
-    else
-      render json: @event.errors, status: :unprocessable_entity
-    end
+    hood = Neighborhood.find(params.id)
+    @event.neighborhood = hood
+    @event.save
+    # if @event.save
+    #   render json: @event, status: :created, location: @event
+    # else
+    #   render json: @event.errors, status: :unprocessable_entity
+    # end
   end
-
+  
+    
   # PATCH/PUT /events/1
   def update
     if @event.update(event_params)
@@ -47,6 +65,6 @@ class EventsController < ApiController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:location, :start_date, :end_date, :price, :name)
+      params.require(:event).permit(:location, :start_date, :end_date, :price, :name, :neighborhood_id)
     end
 end
