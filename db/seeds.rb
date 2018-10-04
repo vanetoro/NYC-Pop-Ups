@@ -14,6 +14,8 @@ magic_lab = Event.create(name:'Magic Lab', location: '344 West 14th Street', sta
 mad_hatter = Event.create(name: "Mad Hatter's G&T Party", location: '73 Morgan Avenue', start_date: '2018-05-25', end_date: '2018-10-07', price: '$45')
 
 sippin_santa = Event.create(name: "Sippin’ Santa at Boilermaker", location: '5 Broadway', start_date: '2018-11-23', end_date: '2018-12-31', price: 'Free')
+rooms29 = Event.create(name: '29rooms', location:'588 Baltic Street', start_date: '2018-09-06', end_date: '2018-09-16', price: "$40"  )
+
 manhattan = Neighborhood.create(name: 'Manhattan')
 brooklyn = Neighborhood.create(name: 'Brooklyn')
 queens = Neighborhood.create(name: 'Queens')
@@ -22,8 +24,9 @@ bronx = Neighborhood.create(name:'Bronx')
 mad_hatter.neighborhood = brooklyn
 magic_lab.neighborhood = manhattan
 sippin_santa.neighborhood = manhattan
+rooms29.neighborhood= brooklyn
 
 mad_hatter.save
 magic_lab.save
-# binding.pry
 sippin_santa.save
+rooms29.save
