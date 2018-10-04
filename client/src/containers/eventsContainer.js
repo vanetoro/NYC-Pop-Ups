@@ -33,12 +33,11 @@ import '../eventsContainer.css'
         return (
         <div id='eventsContainer'> 
             <div className='ml-auto'>
-                <Button bsStyle="success" onClick={this.handleClick.bind(this)}>Add Event</Button>
+                <Button bsStyle="success" className='custom-btn'  onClick={this.handleClick.bind(this)}>Add Event</Button>
             </div>    
             <Router>
                 <React.Fragment>
                     <Route exact path='/' render={()=> <Events events={this.props.events} type={this.props.type}/>} />
-                    {/* <Route exact path='/events/upcoming' render={()=> <Events events={this.props.events}/>} /> */}
                 </React.Fragment>
             </Router>
             <NewEvent
