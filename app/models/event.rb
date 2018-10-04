@@ -2,6 +2,10 @@ class Event < ApplicationRecord
     belongs_to :neighborhood
 
 
+    def self.current_events
+        self.where('start_date < ?', Time.now) && self.where('end_date > ?', Time.now )
+    end
+    
     def self.upcoming_events
         self.where('start_date > ?', Time.now)
     end
