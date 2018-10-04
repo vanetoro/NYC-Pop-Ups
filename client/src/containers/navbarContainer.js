@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import NavBar from '../components/navbar';
 import { connect } from 'react-redux'
 import { fetchUpComingEvents, fetchCurrentEvents, fetchPastEvents } from '../actions/eventActions'
-
+import '../navbar.css'
 
 class NavbarContainer extends React.Component {
     render() {
