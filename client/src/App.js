@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import EventsContainer from './containers/eventsContainer';
-import NavBar from './components/navbar';
+// import NavBar from './components/navbar';
 import { BrowserRouter as Router} from 'react-router-dom';
+import NavbarContainer from './containers/navbarContainer';
 
 class App extends Component {
  
@@ -12,7 +13,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <NavBar />
+          <NavbarContainer/>
           <hr></hr>
           <EventsContainer />
         </div>
