@@ -32,14 +32,13 @@ import '../eventsContainer.css'
 
         return (
         <div id='eventsContainer'> 
-            <div className='mr-auto'>
+            <div className='ml-auto'>
                 <Button bsStyle="success" onClick={this.handleClick.bind(this)}>Add Event</Button>
-                <Button bsStyle="primary" onClick={this.handleUpComing.bind(this)}>Up Coming</Button>
             </div>    
             <Router>
                 <React.Fragment>
-                    <Route exact path='/' render={()=> <Events events={this.props.events}/>} />
-                    <Route exact path='/events/:id' component={ShowEvent} />
+                    <Route exact path='/' render={()=> <Events events={this.props.events} type={this.props.type}/>} />
+                    {/* <Route exact path='/events/upcoming' render={()=> <Events events={this.props.events}/>} /> */}
                 </React.Fragment>
             </Router>
             <NewEvent
@@ -58,7 +57,9 @@ import '../eventsContainer.css'
         return {
             events: state.events,
             show: state.show,
-            hoods: state.hoods
+            hoods: state.hoods, 
+            type: this.type
+
         }
     }
 
@@ -69,7 +70,7 @@ import '../eventsContainer.css'
             showNewEventForm: () => dispatch({type: 'ADD_EVENT'}),
             postEvent: (state) => dispatch(postEvent(state)),
             getHoods: () => dispatch(getHoods()),
-            getUpcoming: () => dispatch(fetchUpComingEvents())
+            // getUpcoming: () => dispatch(fetchUpComingEvents())
         }
     }
 
