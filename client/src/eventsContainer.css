@@ -18,3 +18,8 @@
 .modal.fade.in .modal-dialog {
     transform: translate(0,0);
 }
+
+.custom-btn {
+    float: right;
+    margin: auto;
+}
