@@ -1,6 +1,6 @@
 import React from 'react'
 import Moment from 'react-moment';
-import { Redirect } from 'react-router'
+// import { Redirect } from 'react-router-dom'
 
 
 

@@ -6,7 +6,7 @@ function Events(props) {
     return (
         <div className="container ">
             <div className='row'>
-                <h2 className='mr-auto'>Current Pop-Ups</h2>
+                <h2 className='mr-auto'>{props.type} Pop-Ups</h2>
             </div>   
             <div className="row">
                 {event}
