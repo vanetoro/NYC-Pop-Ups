@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   get '/api/events/upcoming', to: 'events#upcoming'
   get '/api/events/past', to: 'events#past'
+  get '/api/events/current', to: 'events#current'
   
   scope '/api' do 
     resources :neighborhoods, only: [:index]

@@ -13,6 +13,11 @@ class EventsController < ApiController
     
     render json: @events
   end 
+  def current
+    @events = Event.current_events
+    
+    render json: @events
+  end 
 
   def past
 
