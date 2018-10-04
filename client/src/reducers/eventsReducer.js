@@ -1,4 +1,5 @@
 export default function eventsReducer(state = {
+    type: 'All',
     events:  [], 
     hoods: [],
     show: false
