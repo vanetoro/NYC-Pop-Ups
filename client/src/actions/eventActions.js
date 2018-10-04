@@ -15,6 +15,22 @@ export function fetchUpComingEvents() {
         .then(data => dispatch({type: 'FETCH_EVENTS', data}))
     }
 }
+export function fetchCurrentEvents() {
+    return(dispatch) => {
+        dispatch({type: 'LOADING'})
+        return window.fetch('/api/events/current')
+        .then(response => response.json())
+        .then(data => dispatch({type: 'FETCH_EVENTS', data}))
+    }
+}
+export function fetchPastEvents() {
+    return(dispatch) => {
+        dispatch({type: 'LOADING'})
+        return window.fetch('/api/events/past')
+        .then(response => response.json())
+        .then(data => dispatch({type: 'FETCH_EVENTS', data}))
+    }
+}
 export function getHoods() {
     return(dispatch) => {
         dispatch({type: 'LOADING'})
