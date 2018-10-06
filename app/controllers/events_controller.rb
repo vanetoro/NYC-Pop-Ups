@@ -29,13 +29,13 @@ class EventsController < ApiController
 
   # GET /events/1
 
-  # def show
-  #   render json: @event
-  # end
+  def show
+    render json: @event
+  end
   
   # POST /events
   def create
-    binding.pry
+    # binding.pry
     @event = Event.new(event_params)
     hood = Neighborhood.find(params.id)
     @event.neighborhood = hood
