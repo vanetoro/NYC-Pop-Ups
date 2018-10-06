@@ -6,7 +6,7 @@ function NavBar(props) {
     console.log(props)
     return (
         <Navbar>
-            <Navbar.Brand>NYC Pop-Ups</Navbar.Brand>
+            <Navbar.Brand onClick={() => props.getEvents()} >NYC Pop-Ups</Navbar.Brand>
             <Nav>
             <NavItem>
                 <NavLink to='/events/current' onClick={() => props.getCurrent()}  className="nav-link" >CURRENT <span class="sr-only">(current)</span></NavLink>
@@ -20,6 +20,8 @@ function NavBar(props) {
             <NavItem>
             </NavItem>
             </Nav>
+            <Button bsStyle="success" className='custom-btn' onClick={(e) => props.newEvent(e)} >Add Event</Button>
+
         </Navbar>
     )
 }
