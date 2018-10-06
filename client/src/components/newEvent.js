@@ -81,7 +81,7 @@ class NewEvent extends React.Component {
                                 </form>
                         </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={() => this.props.showNewEventForm()}>Cancel</Button>
+                        <Button onClick={() => this.props.removeForm()}>Cancel</Button>
                         <Button bsStyle="primary" onClick={this.handleSubmit.bind(this)}>Save</Button>
                     </Modal.Footer>
                 </div>
