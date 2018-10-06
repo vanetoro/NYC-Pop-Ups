@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import Events from '../components/events';
 import { connect } from 'react-redux'
-import fetchEvents, { fetchEvent, postEvent, getHoods, fetchUpComingEvents } from '../actions/eventActions'
+import fetchEvents, { fetchEvent, postEvent } from '../actions/eventActions'
 import NewEvent from '../components/newEvent';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ShowEvent from '../components/showEvent';
-import { Button } from 'react-bootstrap'
 import '../eventsContainer.css'
 
 
@@ -22,10 +21,10 @@ import '../eventsContainer.css'
         this.props.showNewEventForm()
     }
 
-    handleUpComing(e){
-        e.preventDefault()
-        this.props.getUpcoming()
-    }
+    // handleUpComing(e){
+    //     e.preventDefault()
+    //     this.props.getUpcoming()
+    // }
     
 
     render() {
@@ -33,17 +32,21 @@ import '../eventsContainer.css'
         return (
         <div id='eventsContainer'> 
             <div className='ml-auto'>
-                <Button bsStyle="success" className='custom-btn'  onClick={this.handleClick.bind(this)}>Add Event</Button>
             </div>    
             <Router>
                 <React.Fragment>
-                    <Route exact path='/' render={()=> <Events events={this.props.events} type={this.props.type}/>} />
+                    <Route exact path='/' 
+                                render={()=> <Events events={this.props.events} 
+                                                     type={this.props.type}
+                                                     getEvent={this.props.getEvent}
+                                                     />} />
+                    <Route path='events/:id' render={() =><ShowEvent />} />                                
                 </React.Fragment>
             </Router>
             <NewEvent
                 show={this.props.show} 
                 postEvent={this.props.postEvent} 
-                showNewEventForm={this.props.showNewEventForm}
+                removeForm={this.props.showNewEventForm}
                 neighborhoods={this.props.hoods}
             />
         </div>
@@ -66,9 +69,10 @@ import '../eventsContainer.css'
         return{
             getEvents: () => dispatch(fetchEvents()),
             getEvent: (id) => dispatch(fetchEvent(id)),
-            showNewEventForm: () => dispatch({type: 'ADD_EVENT'}),
             postEvent: (state) => dispatch(postEvent(state)),
-            getHoods: () => dispatch(getHoods()),
+            showNewEventForm: () => dispatch({type: 'ADD_EVENT'})
+            // getEvent: (id) => dispatch(fetchEvent(id)),
+            // getHoods: () => dispatch(getHoods()),
             // getUpcoming: () => dispatch(fetchUpComingEvents())
         }
     }
