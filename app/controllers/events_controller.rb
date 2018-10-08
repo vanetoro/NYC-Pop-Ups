@@ -35,7 +35,7 @@ class EventsController < ApiController
   
   # POST /events
   def create
-    # binding.pry
+    binding.pry
     @event = Event.new(event_params)
     hood = Neighborhood.find(params.id)
     @event.neighborhood = hood
