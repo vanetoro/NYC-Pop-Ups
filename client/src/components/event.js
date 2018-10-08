@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, Col } from 'react-bootstrap';
 import { NavLink} from 'react-router-dom';
-// import Moment from 'react-moment';
 // import { Redirect } from 'react-router-dom'
 
 
