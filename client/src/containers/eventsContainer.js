@@ -40,7 +40,7 @@ import '../eventsContainer.css'
                                                      type={this.props.type}
                                                      getEvent={this.props.getEvent}
                                                      />} />
-                    <Route exact path='/events/:id' render={() => <ShowEvent event={this.props.events} hoods={this.props.hoods}/>} />                                
+                    <Route path='/events/:id' component={ShowEvent} />                                
                 </React.Fragment>
             </Router>
             <NewEvent

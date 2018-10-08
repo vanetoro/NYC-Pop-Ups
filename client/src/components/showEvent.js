@@ -1,8 +1,9 @@
 import React from 'react'
 import Moment from 'react-moment';
+import { connect } from 'react-redux'
 
 function ShowEvent(props) {
-    console.log(props.event.neighborhood_id)
+    console.log(props)
     // let hoodId = parseInt(props.event.neighborhood_id) -1
     // let hood = props.hoods[hoodId]
     return (
@@ -17,4 +18,8 @@ function ShowEvent(props) {
     )
 }
 
-export default ShowEvent
+const mapStateToProps = (state, ownProps) => {
+    debugger
+}
+
+export default connect(mapStateToProps)(ShowEvent)

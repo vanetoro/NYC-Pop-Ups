@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navbar, NavItem, Nav, Button } from 'react-bootstrap';
-import { NavLink} from 'react-router-dom';
+import { Link, NavLink} from 'react-router-dom';
 
 function NavBar(props) {
     console.log(props)
@@ -9,7 +9,7 @@ function NavBar(props) {
             <Navbar.Brand onClick={() => props.getEvents()} >NYC Pop-Ups</Navbar.Brand>
             <Nav>
             <NavItem>
-                <NavLink to='/events/current' onClick={() => props.getCurrent()}  className="nav-link" >CURRENT <span class="sr-only">(current)</span></NavLink>
+                <Link to='/events/current'  className="nav-link" >CURRENT <span class="sr-only">(current)</span></Link>
             </NavItem>
             <NavItem>
                 <NavLink to='/events/upcoming'  onClick={() => props.getUpcoming()} className="nav-link" href="#">UPCOMING</NavLink>
