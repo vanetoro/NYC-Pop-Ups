@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import eventsReducer from './reducers/eventsReducer'
 
-const store = createStore(eventsReducer,applyMiddleware(thunk))
+const store = createStore(eventsReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunk))
 
 ReactDOM.render(
     <Provider store={store}>
