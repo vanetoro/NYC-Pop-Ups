@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import NavBar from '../components/navbar';
 import { connect } from 'react-redux'
-import fetchEvents, { fetchUpComingEvents, fetchCurrentEvents, fetchPastEvents, getHoods } from '../actions/eventActions'
+import fetchEvents, { getHoods } from '../actions/eventActions'
 import '../navbar.css'
 
 class NavbarContainer extends React.Component {
@@ -15,10 +15,7 @@ class NavbarContainer extends React.Component {
     render() {
         return (
             <div>
-                <NavBar getUpcoming={this.props.getUpcoming} 
-                        getCurrent={this.props.getCurrent}
-                        getPast={this.props.getPast}
-                        newEvent={this.handleClick.bind(this)}
+                <NavBar newEvent={this.handleClick.bind(this)}
                         getEvents={this.props.getEvents}
                 />
             </div>
@@ -28,12 +25,9 @@ class NavbarContainer extends React.Component {
 
 const mapDispatchtoProps = (dispatch) => {
     return {
-        getCurrent: () => dispatch(fetchCurrentEvents()),
-        getUpcoming: () => dispatch(fetchUpComingEvents()),
-        getPast: () => dispatch(fetchPastEvents()),
+        getEvents: () => dispatch(fetchEvents()),
         getHoods: () => dispatch(getHoods()),
         showNewEventForm: () => dispatch({type: 'ADD_EVENT'}),
-        getEvents: () => dispatch(fetchEvents())
 
     }
 }
