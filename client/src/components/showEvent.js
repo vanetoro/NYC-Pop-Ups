@@ -9,8 +9,8 @@ function ShowEvent(props) {
   return (
     <React.Fragment>
             <h1>{props.event.name}</h1>
-            <p>Description</p>
-            <p>Address: {props.event.location} in </p>
+            <p>{props.event.description}</p>
+            <p>Address: {props.event.address} in </p>
             <p>
               Start Date: <Moment format="MMMM DD YYYY">{props.event.start_date}</Moment>
             </p>
