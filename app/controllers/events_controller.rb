@@ -8,35 +8,18 @@ class EventsController < ApiController
     render json: @events
   end
   
-  def upcoming
-    @events = Event.upcoming_events
-    
-    render json: @events
-  end 
-  def current
-    @events = Event.current_events
-    
-    render json: @events
-  end 
-
-  def past
-
-    @events = Event.past_events
-    
-    render json: @events
-  end 
-
 
   # GET /events/1
 
   def show
-    render json: @event
+    render json: set_event
+    # render json: @event, include: [{document: {include: {files: {include: {attachments: {include: {blob: {methods: :service_url}}}}} }}]
   end
   
   # POST /events
   def create
     @event = Event.new(event_params)
-    binding.pry
+    # binding.pry
     hood = Neighborhood.find(params.id)
     @event.neighborhood = hood
     @event.save
