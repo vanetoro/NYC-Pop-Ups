@@ -36,6 +36,7 @@ class NewEvent extends React.Component {
  
 
     render() {
+        
         console.log(this.state)
         let neighborhoods = this.props.neighborhoods.map(neighborhood => <MenuItem onSelect={this.handleSelect.bind(this)} eventKey={neighborhood.id}>{neighborhood.name}</MenuItem>)
         return (
