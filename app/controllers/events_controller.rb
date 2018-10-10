@@ -35,8 +35,8 @@ class EventsController < ApiController
   
   # POST /events
   def create
-    binding.pry
     @event = Event.new(event_params)
+    binding.pry
     hood = Neighborhood.find(params.id)
     @event.neighborhood = hood
     @event.save
@@ -70,6 +70,6 @@ class EventsController < ApiController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:location, :start_date, :end_date, :price, :name, :neighborhood_id)
+      params.require(:event).permit(:address, :description, :start_date, :end_date, :price, :name, :neighborhood_id, :avatar)
     end
 end
