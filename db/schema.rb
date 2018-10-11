@@ -61,12 +61,13 @@ ActiveRecord::Schema.define(version: 2018_10_08_180818) do
 
   create_table "events", force: :cascade do |t|
     t.string "name"
-    t.string "description"
     t.string "address"
+    t.string "description"
     t.date "start_date"
     t.date "end_date"
     t.string "price"
     t.integer "neighborhood_id"
+    t.string "imageUrl"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
