@@ -13,15 +13,15 @@ class EventsController < ApiController
 
   def show
     render json: set_event
-    # render json: @event, include: [{document: {include: {files: {include: {attachments: {include: {blob: {methods: :service_url}}}}} }}]
   end
   
   # POST /events
   def create
     @event = Event.new(event_params)
+    @event.imageUrl = url_for(@event.avatar)
     # binding.pry
-    hood = Neighborhood.find(params.id)
-    @event.neighborhood = hood
+    # hood = Neighborhood.find(params.id)
+    # @event.neighborhood = hood
     @event.save
     # if @event.save
     #   render json: @event, status: :created, location: @event
