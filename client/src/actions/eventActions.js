@@ -25,17 +25,14 @@ export function fetchEvent(id) {
         .then(data => dispatch({type: 'FETCH_EVENTS', data}))
     }
 }
-export function postEvent(state) {
-    state = {...state, neighborhood_id: state.neighborhood.id}
-    let body = JSON.stringify(state)
+export function postEvent(formData) {
+    // state = {...state, neighborhood_id: state.neighborhood.id}
+    // let body = JSON.stringify(state)
     return(dispatch) => {
         dispatch({type: 'LOADING'})
         return window.fetch(`/api/events/`,{
             method: 'POST',
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            body: body,
+            body: formData,
         })
         .then(response => response.json())
         .then(data => dispatch({type: 'ADD_EVENT', data}))
