@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal, Button, FormControl, DropdownButton, MenuItem, FormGroup, ControlLabel } from 'react-bootstrap';
 import '../eventsContainer.css'
 
+
 class NewEvent extends React.Component {
 
 
@@ -18,6 +19,7 @@ class NewEvent extends React.Component {
     }
 
     handleChange(e){
+        // debugger
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -31,13 +33,32 @@ class NewEvent extends React.Component {
 
     handleSubmit(e){
         e.preventDefault()
-        this.props.postEvent(this.state)
+        const formData = new FormData()
+        formData.append('event[name]', this.state.name)
+        formData.append('event[description]', this.state.description)
+        formData.append('event[address]', this.state.address)
+        formData.append('event[start_date]', this.state.start_date)
+        formData.append('event[end_date]', this.state.end_date)
+        formData.append('event[price]', this.state.price)
+        formData.append('event[neighborhood_id]', parseInt(this.state.neighborhood.id))
+        formData.append('event[avatar]', this.state.avatar)
+        
+
+        this.props.postEvent(formData)
+    }
+
+    handleFileUpload(e){
+        e.preventDefault()
+        this.setState({
+            avatar: e.target.files[0]
+        })
     }
  
-
+  
     render() {
-        
+
         console.log(this.state)
+        
         let neighborhoods = this.props.neighborhoods.map(neighborhood => <MenuItem onSelect={this.handleSelect.bind(this)} eventKey={neighborhood.id}>{neighborhood.name}</MenuItem>)
         return (
             <Modal show={this.props.show}>
@@ -108,7 +129,7 @@ class NewEvent extends React.Component {
                                     type="file"
                                     label="File"
                                     help="Example block-level help text here."
-                                    onChange={this.handleChange.bind(this)}
+                                    onChange={this.handleFileUpload.bind(this)}
                                     />
                                 </form>
                         </Modal.Body>
