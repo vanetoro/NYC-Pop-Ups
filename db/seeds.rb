@@ -18,6 +18,10 @@ mad_hatter.description = "An “Alice In Wonderland”-themed pop-up will invite
 sippin_santa.description = "Hawaiian Christmas pop-up by Boilermaker and sister to Miracle on 9th Street, with varied and very holiday-themed drink offerings"
 rooms29.description = '29Rooms blurs the lines between an art exhibition, a fun house, and a choose your own adventure novel.'
 
+sippin_santa.avatar.attach(io: File.open('/Users/Vane/Desktop/NYC-PopUps/santa.jpg'), filename: "santa.jpg")
+# binding.pry
+# sippin_santa.imageUrl = url_for(sippin_santa.avatar)
+
 
 manhattan = Neighborhood.create(name: 'Manhattan')
 brooklyn = Neighborhood.create(name: 'Brooklyn')
