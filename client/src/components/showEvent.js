@@ -5,9 +5,10 @@ import { connect } from 'react-redux'
 function ShowEvent(props) {
   // let hoodId = parseInt(props.event.neighborhood_id) -1
   // let hood = props.hoods[hoodId]
-//   console.log(props)
+  // console.log(props)
   return (
     <React.Fragment>
+            <img src={props.event.imageUrl}/>
             <h1>{props.event.name}</h1>
             <p>{props.event.description}</p>
             <p>Address: {props.event.address} in </p>
