@@ -25,9 +25,20 @@ export function fetchEvent(id) {
         .then(data => dispatch({type: 'FETCH_EVENTS', data}))
     }
 }
+export function deleteEvent(id) {
+    return(dispatch) => {
+        dispatch({type: 'LOADING'})
+        return window.fetch(`/api/events/${id}`, {
+            method: 'DELETE'
+
+        })
+        .then(dispatch({type: 'DELETE_EVENT', id}))
+        
+        // .then(response => response.json())
+        // .then(data => dispatch({type: 'DELETE_EVENT', data}))
+    }
+}
 export function postEvent(formData) {
-    // state = {...state, neighborhood_id: state.neighborhood.id}
-    // let body = JSON.stringify(state)
     return(dispatch) => {
         dispatch({type: 'LOADING'})
         return window.fetch(`/api/events/`,{
@@ -35,7 +46,7 @@ export function postEvent(formData) {
             body: formData,
         })
         .then(response => response.json())
-        .then(data => dispatch({type: 'ADD_EVENT', data}))
+        .then(data => dispatch({type: 'POST_EVENT', data}))
     }
 }
 
