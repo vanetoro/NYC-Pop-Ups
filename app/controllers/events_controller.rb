@@ -13,6 +13,7 @@ class EventsController < ApiController
 
   def show
     render json: set_event
+    
   end
   
   # POST /events
@@ -23,11 +24,11 @@ class EventsController < ApiController
     # hood = Neighborhood.find(params.id)
     # @event.neighborhood = hood
     @event.save
-    # if @event.save
-    #   render json: @event, status: :created, location: @event
-    # else
-    #   render json: @event.errors, status: :unprocessable_entity
-    # end
+    if @event.save
+      render json: @event, status: :created, location: @event
+    else
+      render json: @event.errors, status: :unprocessable_entity
+    end
   end
   
     
@@ -42,6 +43,7 @@ class EventsController < ApiController
 
   # DELETE /events/1
   def destroy
+    # binding.pry
     @event.destroy
   end
 
