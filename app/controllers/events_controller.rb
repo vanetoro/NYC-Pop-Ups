@@ -18,11 +18,14 @@ class EventsController < ApiController
   
   # POST /events
   def create
-    @event = Event.new(event_params)
-    @event.imageUrl = url_for(@event.avatar)
+    # @event = Event.new
+    # binding.pry
+    # @event.avatar.attach(io: File.open('/Users/Vane/Desktop/NYC-PopUps/puzzle.jpg'), filename: "puzzle.jpg")
     # binding.pry
     # hood = Neighborhood.find(params.id)
     # @event.neighborhood = hood
+    @event.imageUrl = url_for(@event.avatar)
+    @event = Event.create(event_params)
     @event.save
     if @event.save
       render json: @event, status: :created, location: @event
@@ -35,11 +38,13 @@ class EventsController < ApiController
   # PATCH/PUT /events/1
   def update
     if @event.update(event_params)
+      @event.imageUrl = url_for(@event.avatar)
+      @event.save
       render json: @event
     else
       render json: @event.errors, status: :unprocessable_entity
     end
-  end
+  end 
 
   # DELETE /events/1
   def destroy
