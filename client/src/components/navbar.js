@@ -3,7 +3,7 @@ import { Navbar, NavItem, Nav, Button } from 'react-bootstrap'
 import { Link, NavLink } from 'react-router-dom'
 
 function NavBar(props) {
-  console.log(props)
+  // console.log(props)
   return (
     <Navbar>
       <Navbar.Brand>

@@ -14,7 +14,7 @@ sippin_santa = Event.create(name: "Sippin’ Santa at Boilermaker", address: '5 
 rooms29 = Event.create(name: '29rooms', address:'588 Baltic Street', start_date: '2018-09-06', end_date: '2018-09-16', price: "$40"  )
 
 magic_lab.description = "The world's First Magic-themed Art Exhibition is coming to NYC"
-mad_hatter.description = "An “Alice In Wonderland”-themed pop-up will invite visitors aboard a stationary double-decker bus for a two-hour cocktail-mixing experience featuring characters from the classic Lewis Carroll children’s book and British tea-time snacks."
+mad_hatter.description = "Alice In Wonderland”-themed pop-up will invite visitors aboard a stationary double-decker bus for a two-hour cocktail-mixing experience featuring characters from the classic Lewis Carroll children’s book and British tea-time snacks."
 sippin_santa.description = "Hawaiian Christmas pop-up by Boilermaker and sister to Miracle on 9th Street, with varied and very holiday-themed drink offerings"
 rooms29.description = '29Rooms blurs the lines between an art exhibition, a fun house, and a choose your own adventure novel.'
 

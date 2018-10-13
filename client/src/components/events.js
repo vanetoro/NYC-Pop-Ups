@@ -7,15 +7,14 @@ function Events(props) {
     if (!props.events) {
         return null
     }
-    console.log(props)
+ 
     let event = props.events.map(event =>{
             return  (
                 <div key={event.id}>
                     <Event event={event} getEvent={props.getEvent}/>
                 </div>)})
     return (
-        // <div>this is the events component</div>
-        <div className="container ">
+        <div className="container-fluid">
                 <h2 className='mr-auto'>{props.type} Pop-Ups</h2>
                 {event}
         </div>   
