@@ -6,10 +6,10 @@ function Event(props) {
 
     return (
             <Col xs={6} md={3}>
-                <Image src={props.event.imageUrl} rounded responsive/>
-                <h4 >{props.event.name}</h4> 
-                
-                <NavLink to={`/events/${props.event.id}`} className="nav-link" >See More</NavLink>
+                <NavLink to={`/events/${props.event.id}`} className="nav-link" >
+                    <Image src={props.event.imageUrl} rounded responsive/>
+                    <h4 >{props.event.name}</h4> 
+                </NavLink>
             </Col>
     )
 }
