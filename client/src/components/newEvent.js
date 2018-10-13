@@ -1,25 +1,64 @@
 import React from 'react'
-import { Modal, Button, FormControl, DropdownButton, MenuItem, FormGroup, ControlLabel } from 'react-bootstrap';
+import { Modal, Button, FormControl, DropdownButton, MenuItem, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import '../eventsContainer.css'
 
 
 class NewEvent extends React.Component {
 
+        state = {
+            name: '',
+            description: '',
+            address: '',
+            start_date: '',
+            end_date: '',
+            avatar: '',
+            price: '',
+            neighborhood: {
+                name: 'Choose Neighborhood'
+        }
+    }
+    
+    
+    componentWillReceiveProps(nextProps){
+        console.log(nextProps)
+        if(Object.keys(nextProps.edit).length > 0){
+            this.editForm(nextProps)
+        } else{
+            this.newForm()
+        }
+        
+    }
 
-    state = {
-        name: '',
-        description: '',
-        address: '',
-        start_date: '',
-        end_date: '',
-        avatar: '',
-        neighborhood: {
-            name: 'Choose Neighborhood'
-       }
+    editForm(props){
+        this.setState({
+            id: props.edit.id,
+            name: props.edit.name,
+            description: props.edit.description,
+            address: props.edit.address ,
+            start_date: props.edit.start_date ,
+            end_date: props.edit.end_date ,
+            price: props.edit.price,
+            neighborhood: props.neighborhoods.find(hood => hood.id === props.edit.neighborhood_id)
+        })
+    }
+
+    newForm(){
+        this.setState({
+            id: null,
+            name: '',
+            description: '',
+            address: '',
+            start_date: '',
+            end_date: '',
+            avatar: null,
+            price: '',
+            neighborhood: {
+                name: 'Choose Neighborhood'
+        }
+    })
     }
 
     handleChange(e){
-        // debugger
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -30,6 +69,22 @@ class NewEvent extends React.Component {
             neighborhood: this.props.neighborhoods.find((hood) => hood.id === id)
         })
     }
+
+    handleFileUpload(e){
+        e.preventDefault()
+        this.setState({
+            avatar: e.target.files[0]
+        })
+    }
+
+    getValidationState() {
+        const length = this.state.name.length;
+        if (length > 1) return 'success';
+        else if (length > 0) return 'error';
+        return null;
+      }
+    
+    
 
     handleSubmit(e){
         e.preventDefault()
@@ -42,24 +97,24 @@ class NewEvent extends React.Component {
         formData.append('event[price]', this.state.price)
         formData.append('event[neighborhood_id]', parseInt(this.state.neighborhood.id))
         formData.append('event[avatar]', this.state.avatar)
-        
-
-        this.props.postEvent(formData)
+        if(!this.state.id){
+            this.props.postEvent(formData)
+        }else{
+            this.props.updateEvent(formData, this.state.id)
+        }
+        debugger
+        // props.history.push('/')
     }
 
-    handleFileUpload(e){
-        e.preventDefault()
-        this.setState({
-            avatar: e.target.files[0]
-        })
-    }
  
   
     render() {
-
         console.log(this.state)
-        
-        let neighborhoods = this.props.neighborhoods.map(neighborhood => <MenuItem onSelect={this.handleSelect.bind(this)} eventKey={neighborhood.id}>{neighborhood.name}</MenuItem>)
+        let neighborhoods = this.props.neighborhoods.map(neighborhood => 
+        <MenuItem onSelect={this.handleSelect.bind(this)} 
+                    eventKey={neighborhood.id}>{neighborhood.name}
+        </MenuItem>)
+    
         return (
             <Modal show={this.props.show}>
                 <div className="modal-container">
@@ -68,20 +123,28 @@ class NewEvent extends React.Component {
                     </Modal.Header>
                         <Modal.Body>
                             <form >
-                                <FormGroup>
+                                <input id={this.state.id} type='hidden' name="id" />
+                                <FormGroup validationState={this.getValidationState()}>
                                 <label htmlFor="name">Name</label>
                                 <FormControl 
                                     type='text' 
                                     name='name' 
                                     id='name' 
+                                    value= {this.state.name} 
+                                    placeholder= 'Enter Name'
                                     onChange={this.handleChange.bind(this)}/>
+                                    <FormControl.Feedback />
                                 </FormGroup>        
                                 <FormGroup> 
                                     <ControlLabel>Description</ControlLabel>
                                     <FormControl componentClass="textarea" 
+                                    validationState={this.getValidationState()}
                                     name= 'description'
                                     id= 'description'
+                                    value= {this.state.description} 
+                                    placeholder= "Write a short description"
                                     onChange={this.handleChange.bind(this)}/>
+                                    <FormControl.Feedback />
                                 </FormGroup>
                                 <FormGroup>
                                 <label htmlFor="address">Address</label>
@@ -89,6 +152,7 @@ class NewEvent extends React.Component {
                                     type="text" 
                                     name='address' 
                                     id='address' 
+                                    value= {this.state.address} 
                                     onChange={this.handleChange.bind(this)}/>
                                 </FormGroup>   
                                 <FormGroup>
@@ -97,6 +161,7 @@ class NewEvent extends React.Component {
                                     type="text" 
                                     name='price' 
                                     id='price' 
+                                    value= {this.state.price} 
                                     onChange={this.handleChange.bind(this)}/>
                                 </FormGroup>   
                                 <label htmlFor="startDate">Start Date</label>
@@ -105,6 +170,7 @@ class NewEvent extends React.Component {
                                     type='date' 
                                     name= 'start_date' 
                                     id= 'startDate'
+                                    value= {this.state.start_date} 
                                     onChange={this.handleChange.bind(this)}/>
                                 </FormGroup>
                                 <FormGroup>    
@@ -113,6 +179,7 @@ class NewEvent extends React.Component {
                                     type="date" 
                                     name= 'end_date' 
                                     id= 'endDate' 
+                                    value= {this.state.end_date} 
                                     onChange={this.handleChange.bind(this)}/>
                                     <br/>
                                 </FormGroup>                                    
@@ -120,9 +187,15 @@ class NewEvent extends React.Component {
                                     <label htmlFor="neighborhoodDropDown">Neighborhood </label>
                                     <br />
                                     <DropdownButton
-                                    eventKey={1} onSelect={this.handleSelect.bind(this)} title={this.state.neighborhood.name} id='neighborhoodDropDown' > 
+                                    placeholder="Choose Neighborhood"
+                                    eventKey={1} 
+                                    onSelect={this.handleSelect.bind(this)} 
+                                    title={this.state.neighborhood.name} 
+                                    id='neighborhoodDropDown' 
+                                    value= {this.state.neighborhood_id} > 
                                     {neighborhoods}
                                     </DropdownButton>
+                                    <HelpBlock>Must pick a neighborhood</HelpBlock>
                                 </FormGroup>    
                                 <FormControl
                                     name="avatar"
