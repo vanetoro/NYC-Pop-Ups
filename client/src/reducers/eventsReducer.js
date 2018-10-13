@@ -8,9 +8,13 @@ export default function eventsReducer(state = {
         case 'FETCH_EVENTS':
             return {...state, events: action.data}
         case 'ADD_EVENT':
-            return{...state, show: !state.show} 
+            return{...state, show: !state.show, editEvent: {}} 
         case 'POST_EVENT':
             return{...state, events: [...state.events, action.data], show: !state.show}
+        case 'UPDATE_EVENT':
+         let updatedEvent = state.events.find(event => event.id === action.data.id)
+         debugger
+            return{...state, events: [...state.events, updatedEvent], show: !state.show}
         case 'DELETE_EVENT':
             return{...state.events.filter(event => event.id !== action.id)} 
         case 'EDIT_EVENT':
