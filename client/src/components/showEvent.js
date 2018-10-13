@@ -4,12 +4,15 @@ import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap';
 import { deleteEvent } from '../actions/eventActions'
 import { withRouter } from "react-router-dom";
+import NewEvent from '../components/newEvent'
+
 
 
 
 function ShowEvent(props) {
   
-  const handleclick= (e) => {
+  
+  const handleEdit= (e) => {
       e.preventDefault()
       props.editForm(props.event)
       
@@ -23,6 +26,7 @@ function ShowEvent(props) {
   }  
   return (
     <React.Fragment>
+            <Button onClick={() => props.history.goBack()}> ⬅ </Button>
             <h1>{props.event.name}</h1>
             <p>{props.event.description}</p>
             <p>Address: {props.event.address} </p>
@@ -33,8 +37,15 @@ function ShowEvent(props) {
               End Date: <Moment format="MMMM DD YYYY">{props.event.end_date}</Moment>
             </p>
             <p>Price: {props.event.price}</p>
-            <Button bsStyle='info' onClick={handleclick}>Edit</Button>
+            <Button bsStyle='info' onClick={handleEdit}>Edit</Button>
             <Button bsStyle="danger" onClick={handleDelete}>Delete</Button>
+            {/* <NewEvent
+              show={this.props.show}
+              postEvent={this.props.postEvent}
+              removeForm={this.props.showNewEventForm}
+              neighborhoods={this.props.hoods}
+              edit={this.props.edit}
+            /> */}
     </React.Fragment>
   )
 }   
@@ -43,12 +54,13 @@ function ShowEvent(props) {
 const mapDispatchToProps = dispatch => {
   return {
     editForm: (state) => dispatch({ state, type: 'EDIT_EVENT' }),
-    deleteEvent: (id) => dispatch(deleteEvent(id))
+    deleteEvent: (event) => dispatch(deleteEvent(event))
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const id = parseInt(ownProps.match.params.id)
+  const id = parseInt(ownProps.match.params.id)
+  console.log(state, ownProps)
     let event = state.events.find((event) => event.id === id)
   return {
     event
