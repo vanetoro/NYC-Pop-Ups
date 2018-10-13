@@ -49,6 +49,17 @@ export function postEvent(formData) {
         .then(data => dispatch({type: 'POST_EVENT', data}))
     }
 }
+export function updateEvent(formData, id) {
+    return(dispatch) => {
+        dispatch({type: 'LOADING'})
+        return window.fetch(`/api/events/${id}`,{
+            method: 'PATCH',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => dispatch({type: 'UPDATE_EVENT', data}))
+    }
+}
 
 
 
