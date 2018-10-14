@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap';
 import { deleteEvent } from '../actions/eventActions'
 import { withRouter } from "react-router-dom";
-import NewEvent from '../components/newEvent'
 
 
 
@@ -39,7 +38,6 @@ function ShowEvent(props) {
             <p>Price: {props.event.price}</p>
             <Button bsStyle='info' onClick={handleEdit}>Edit</Button>
             <Button bsStyle="danger" onClick={handleDelete}>Delete</Button>
-            
     </React.Fragment>
   )
 }   

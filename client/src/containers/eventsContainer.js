@@ -6,6 +6,8 @@ import NewEvent from '../components/newEvent'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import ShowEvent from '../components/showEvent'
 import '../eventsContainer.css'
+import NavbarContainer from './navbarContainer';
+
 
 class EventsContainer extends Component {
   componentDidMount() {
@@ -19,11 +21,12 @@ class EventsContainer extends Component {
       <div id="eventsContainer">
         <React.Fragment>
           <Switch>
-            <Route exact path="/" render={() => <Events getEvent={this.props.getEvent} />} />
+            <Route exact path="/all" render={() => <Events getEvent={this.props.getEvent} /> } />
             <Route exact path="/:type" component={Events} events={this.props.events} />
             <Route exact path="/events/:id" component={ShowEvent} />
           </Switch>
         </React.Fragment>
+        <NavbarContainer/>
         <NewEvent
           show={this.props.show}
           postEvent={this.props.postEvent}

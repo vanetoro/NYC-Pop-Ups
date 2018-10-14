@@ -27,17 +27,17 @@ const mapStateToProps = (state, ownProps) => {
     let events;
     
     const filter = ownProps.match && ownProps.match.params.type
-    if (filter == 'current') {
+    if (filter === 'current') {
       //filter the events that have a start date before today and an end date after today
       events = state.events.filter(event => {
         return Date.parse(event.start_date) <= Date.now() && Date.parse(event.end_date) >= Date.now()
       })
-    } else if (filter == 'upcoming') {
+    } else if (filter ==='upcoming') {
       //filter the events that have a start date and an end date after today
       events = state.events.filter(event => {
         return Date.parse(event.end_date) >= Date.now() && Date.parse(event.start_date) >= Date.now()
       })
-    } else if(filter == "past") {
+    } else if(filter === "past") {
       //filter the events that have a start date and an end date before today
       events = state.events.filter(event => {
         return Date.parse(event.end_date) <= Date.now() && Date.parse(event.start_date) <= Date.now()
