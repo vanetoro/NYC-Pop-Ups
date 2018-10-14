@@ -39,13 +39,7 @@ function ShowEvent(props) {
             <p>Price: {props.event.price}</p>
             <Button bsStyle='info' onClick={handleEdit}>Edit</Button>
             <Button bsStyle="danger" onClick={handleDelete}>Delete</Button>
-            {/* <NewEvent
-              show={this.props.show}
-              postEvent={this.props.postEvent}
-              removeForm={this.props.showNewEventForm}
-              neighborhoods={this.props.hoods}
-              edit={this.props.edit}
-            /> */}
+            
     </React.Fragment>
   )
 }   
@@ -58,6 +52,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+// set state to the event that should be shown by the params id
 const mapStateToProps = (state, ownProps) => {
   const id = parseInt(ownProps.match.params.id)
   console.log(state, ownProps)
