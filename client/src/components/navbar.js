@@ -27,9 +27,11 @@ function NavBar(props) {
         </NavItem>
         <NavItem />
       </Nav>
-      <Button bsStyle="success" className="custom-btn" onClick={e => props.newEvent(e)}>
-        Add Event
-      </Button>
+      <Nav pullRight>
+        <Button bsStyle="success" className="custom-btn "  onClick={e => props.newEvent(e)}>
+          Add Event
+        </Button>
+      </Nav>
     </Navbar>
   )
 }
