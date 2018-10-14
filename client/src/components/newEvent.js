@@ -18,7 +18,7 @@ class NewEvent extends React.Component {
         }
     }
     
-    
+    // used to pass in the props to edit or clear them for the new form
     componentWillReceiveProps(nextProps){
         console.log(nextProps)
         if(Object.keys(nextProps.edit).length > 0){
@@ -29,6 +29,7 @@ class NewEvent extends React.Component {
         
     }
 
+    // will set that state with the current event being displayed
     editForm(props){
         this.setState({
             id: props.edit.id,
@@ -41,7 +42,7 @@ class NewEvent extends React.Component {
             neighborhood: props.neighborhoods.find(hood => hood.id === props.edit.neighborhood_id)
         })
     }
-
+    // will set state when add event button is clicked
     newForm(){
         this.setState({
             id: null,
@@ -58,18 +59,21 @@ class NewEvent extends React.Component {
     })
     }
 
+    // capturing any change and setting it to the state
     handleChange(e){
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
+    // set that state of neighborhood chosen 
     handleSelect(id){
         this.setState({
             neighborhood: this.props.neighborhoods.find((hood) => hood.id === id)
         })
     }
 
+    //set state of the file chosen to upload
     handleFileUpload(e){
         e.preventDefault()
         this.setState({
@@ -77,6 +81,7 @@ class NewEvent extends React.Component {
         })
     }
 
+    // bootsrap validation
     getValidationState() {
         const length = this.state.name.length;
         if (length > 1) return 'success';
@@ -85,9 +90,10 @@ class NewEvent extends React.Component {
       }
     
     
-
+    // form submit 
     handleSubmit(e){
         e.preventDefault()
+        // created form data to be able to send the attachement 
         const formData = new FormData()
         formData.append('event[name]', this.state.name)
         formData.append('event[description]', this.state.description)
@@ -96,20 +102,22 @@ class NewEvent extends React.Component {
         formData.append('event[end_date]', this.state.end_date)
         formData.append('event[price]', this.state.price)
         formData.append('event[neighborhood_id]', parseInt(this.state.neighborhood.id))
-        formData.append('event[avatar]', this.state.avatar)
+        // if no image provided skip adding image to the form data
+        if(this.state.avatar ){
+            formData.append('event[avatar]', this.state.avatar)
+        }
+        // check if event is being update or created
         if(!this.state.id){
             this.props.postEvent(formData)
         }else{
             this.props.updateEvent(formData, this.state.id)
         }
-        debugger
-        // props.history.push('/')
     }
 
  
   
     render() {
-        console.log(this.state)
+        //  creating menu select for every neighboorhood 
         let neighborhoods = this.props.neighborhoods.map(neighborhood => 
         <MenuItem onSelect={this.handleSelect.bind(this)} 
                     eventKey={neighborhood.id}>{neighborhood.name}
