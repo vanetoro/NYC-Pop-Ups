@@ -18,14 +18,13 @@ class EventsController < ApiController
   
   # POST /events
   def create
-    # @event = Event.new
-    # binding.pry
-    # @event.avatar.attach(io: File.open('/Users/Vane/Desktop/NYC-PopUps/puzzle.jpg'), filename: "puzzle.jpg")
-    # binding.pry
     # hood = Neighborhood.find(params.id)
     # @event.neighborhood = hood
-    @event.imageUrl = url_for(@event.avatar)
+    # @event.avatar.attach(io: File.open('/Users/Vane/Desktop/NYC-PopUps/puzzle.jpeg'), filename: "puzzle.jpeg")
     @event = Event.create(event_params)
+    if @event.avatar.attached?
+      @event.imageUrl = url_for(@event.avatar)
+    end 
     @event.save
     if @event.save
       render json: @event, status: :created, location: @event
@@ -38,7 +37,9 @@ class EventsController < ApiController
   # PATCH/PUT /events/1
   def update
     if @event.update(event_params)
-      @event.imageUrl = url_for(@event.avatar)
+      if @event.avatar.attached?
+        @event.imageUrl = url_for(@event.avatar)
+      end 
       @event.save
       render json: @event
     else
@@ -60,6 +61,6 @@ class EventsController < ApiController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:address, :description, :start_date, :end_date, :price, :name, :neighborhood_id, :avatar)
+        params.require(:event).permit(:address, :description, :start_date, :end_date, :price, :name, :neighborhood_id, :avatar)
     end
 end
