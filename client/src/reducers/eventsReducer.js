@@ -11,12 +11,11 @@ export default function eventsReducer(state = {
             return{...state, show: !state.show, editEvent: {}} 
         case 'POST_EVENT':
             return{...state, events: [...state.events, action.data], show: !state.show}
-        case 'UPDATE_EVENT':
-         let updatedEvent = state.events.find(event => event.id === action.data.id)
-         debugger
-            return{...state, events: [...state.events, updatedEvent], show: !state.show}
+            case 'UPDATE_EVENT':
+            let removeUpdatedEvent = state.events.filter(event => event.id !== action.data.id)
+               return{...state, events: [...removeUpdatedEvent, action.data], show: !state.show}
         case 'DELETE_EVENT':
-            return{...state.events.filter(event => event.id !== action.id)} 
+            return{...state, events: [...state.events.filter(event => event.id !== action.id)]} 
         case 'EDIT_EVENT':
             return{...state, editEvent: action.state, show: !state.show} 
         case 'FETCH_HOODS':
