@@ -7,7 +7,7 @@ function Events(props) {
     if (!props.events) {
         return null
     }
- 
+
     let event = props.events.map(event =>{
             return  (
                 <div key={event.id}>
@@ -29,21 +29,21 @@ const mapStateToProps = (state, ownProps) => {
     const filter = ownProps.match && ownProps.match.params.type
     if (filter == 'current') {
       //filter the events that have a start date before today and an end date after today
-      events = state.events.filter(event => {
+      events = state.events.reverse().filter(event => {
         return Date.parse(event.start_date) <= Date.now() && Date.parse(event.end_date) >= Date.now()
       })
     } else if (filter == 'upcoming') {
       //filter the events that have a start date and an end date after today
-      events = state.events.filter(event => {
+      events = state.events.reverse().filter(event => {
         return Date.parse(event.end_date) >= Date.now() && Date.parse(event.start_date) >= Date.now()
       })
     } else if(filter == "past") {
       //filter the events that have a start date and an end date before today
-      events = state.events.filter(event => {
+      events = state.events.reverse().filter(event => {
         return Date.parse(event.end_date) <= Date.now() && Date.parse(event.start_date) <= Date.now()
       })
     } else {
-        events = state.events
+        events = state.events.reverse()
     }
     //pass the filtered events as props to the ShowEvent component
     return {
