@@ -1,17 +1,13 @@
 import React from 'react'
-import Moment from 'react-moment'
 import { connect } from 'react-redux'
-import { Button } from 'react-bootstrap';
+import EventDetails from './eventDetails';
+import { Button, Col, Image, Row } from 'react-bootstrap';
 import { deleteEvent } from '../actions/eventActions'
 import { withRouter } from "react-router-dom";
-import NewEvent from '../components/newEvent'
-
-
-
 
 function ShowEvent(props) {
   
-  
+  console.log(props)
   const handleEdit= (e) => {
       e.preventDefault()
       props.editForm(props.event)
@@ -24,22 +20,32 @@ function ShowEvent(props) {
     props.history.push('/')
 
   }  
+  let styleCss =  {  
+    height: 250,
+    width: 'auto',
+    position: 'relative',
+    top: 20,
+    bottom: 0,  
+    left: 0, 
+    right: 0,  
+    margin: 'auto',    
+}
   return (
+    
     <React.Fragment>
-            <Button onClick={() => props.history.goBack()}> ⬅ </Button>
-            <h1>{props.event.name}</h1>
-            <p>{props.event.description}</p>
-            <p>Address: {props.event.address} </p>
-            <p>
-              Start Date: <Moment format="MMMM DD YYYY">{props.event.start_date}</Moment>
-            </p>
-            <p>
-              End Date: <Moment format="MMMM DD YYYY">{props.event.end_date}</Moment>
-            </p>
-            <p>Price: {props.event.price}</p>
-            <Button bsStyle='info' onClick={handleEdit}>Edit</Button>
-            <Button bsStyle="danger" onClick={handleDelete}>Delete</Button>
-            
+      <Row style={{position: 'relative'}}>
+        <Col md={1}>
+              <Button onClick={() => props.history.goBack()}> ⬅ </Button>
+        </Col>
+      <Col md={7}>
+        <EventDetails event={props.event}/>
+        <Button bsStyle='info' onClick={handleEdit}>Edit</Button>
+        <Button bsStyle="danger" onClick={handleDelete}>Delete</Button>
+      </Col>
+     <Col md={4} >
+       <Image style={styleCss} src={props.event.imageUrl} rounded responsive/>
+     </Col>
+     </Row>
     </React.Fragment>
   )
 }   
@@ -54,12 +60,14 @@ const mapDispatchToProps = dispatch => {
 
 // set state to the event that should be shown by the params id
 const mapStateToProps = (state, ownProps) => {
-  const id = parseInt(ownProps.match.params.id)
-  console.log(state, ownProps)
+    const id = parseInt(ownProps.match.params.id)
     let event = state.events.find((event) => event.id === id)
+    let hood = state.hoods.find(hood => hood.id === event.neighborhood_id)
+    event = {...event, hood: state.hoods.find(hood => hood.id === event.neighborhood_id)}
   return {
     event
   }
+  
 }
 
 export default withRouter( connect(mapStateToProps, mapDispatchToProps)(ShowEvent) )
