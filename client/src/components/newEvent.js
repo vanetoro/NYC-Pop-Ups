@@ -4,8 +4,9 @@ import '../eventsContainer.css'
 
 
 class NewEvent extends React.Component {
-
-        state = {
+    constructor(props){
+        super(props)
+        this.state = {
             name: '',
             description: '',
             address: '',
@@ -16,6 +17,9 @@ class NewEvent extends React.Component {
             neighborhood: {
                 name: 'Choose Neighborhood'
         }
+
+        }
+        this.validateForm = this.validateForm.bind(this)
     }
     
     // used to pass in the props to edit or clear them for the new form
@@ -39,7 +43,8 @@ class NewEvent extends React.Component {
             start_date: props.edit.start_date ,
             end_date: props.edit.end_date ,
             price: props.edit.price,
-            neighborhood: props.neighborhoods.find(hood => hood.id === props.edit.neighborhood_id)
+            neighborhood: props.neighborhoods.find(hood => hood.id === props.edit.neighborhood_id),
+            formValid: true,
         })
     }
     // will set state when add event button is clicked
@@ -53,38 +58,75 @@ class NewEvent extends React.Component {
             end_date: '',
             avatar: null,
             price: '',
+            nameValid: false,
+            neighborhoodValid: false,
+            formValid: false,
             neighborhood: {
                 name: 'Choose Neighborhood'
-        }
+            }
     })
     }
+
+    validateName(){
+        if (this.state.name.length >= 3){
+            console.log('valid name')
+            this.setState({nameValid: true}, this.validateForm)
+        } else{
+            this.setState({nameValid: false})
+        }
+
+       
+        
+    }
+
+    
 
     // capturing any change and setting it to the state
     handleChange(e){
         this.setState({
             [e.target.name]: e.target.value
         })
+        this.validateName()
     }
 
     // set that state of neighborhood chosen 
     handleSelect(id){
+        let selectedNeighborhood = this.props.neighborhoods.find((hood) => hood.id === id)
         this.setState({
-            neighborhood: this.props.neighborhoods.find((hood) => hood.id === id)
-        })
+            neighborhood: selectedNeighborhood
+        }, this.validateNeighborhood)
+        
+       
+    }
+
+    validateNeighborhood(){
+        if(this.state.neighborhood.name !== 'Choose Neighborhood')
+        this.setState({neighborhoodValid: true}, this.validateForm)
     }
 
     //set state of the file chosen to upload
     handleFileUpload(e){
         e.preventDefault()
+        debugger
         this.setState({
             avatar: e.target.files[0]
         })
     }
 
+
+    validateForm(){
+        debugger
+        if(this.state.nameValid && this.state.neighborhoodValid){
+                this.setState({
+                formValid: true,
+            } )
+        }  
+    }
+
     // bootsrap validation
     getValidationState() {
         const length = this.state.name.length;
-        if (length > 1) return 'success';
+        if (length > 3) return 'success';
         else if (length > 0) return 'error';
         return null;
       }
@@ -93,6 +135,7 @@ class NewEvent extends React.Component {
     // form submit 
     handleSubmit(e){
         e.preventDefault()
+
         // created form data to be able to send the attachement 
         const formData = new FormData()
         formData.append('event[name]', this.state.name)
@@ -106,23 +149,28 @@ class NewEvent extends React.Component {
         if(this.state.avatar ){
             formData.append('event[avatar]', this.state.avatar)
         }
+        debugger
         // check if event is being update or created
         if(!this.state.id){
             this.props.postEvent(formData)
         }else{
             this.props.updateEvent(formData, this.state.id)
         }
+
     }
+    
+
 
  
   
     render() {
+        console.log(this.state)
         //  creating menu select for every neighboorhood 
         let neighborhoods = this.props.neighborhoods.map(neighborhood => 
         <MenuItem onSelect={this.handleSelect.bind(this)} 
                     eventKey={neighborhood.id}>{neighborhood.name}
         </MenuItem>)
-    
+        
         return (
             <Modal show={this.props.show}>
                 <div className="modal-container">
@@ -133,14 +181,14 @@ class NewEvent extends React.Component {
                             <form >
                                 <input id={this.state.id} type='hidden' name="id" />
                                 <FormGroup validationState={this.getValidationState()}>
-                                <label htmlFor="name">Name</label>
+                                <label htmlFor="name" >Name</label>
                                 <FormControl 
                                     type='text' 
                                     name='name' 
                                     id='name' 
                                     value= {this.state.name} 
                                     placeholder= 'Enter Name'
-                                    onChange={this.handleChange.bind(this)}/>
+                                    onChange={this.handleChange.bind(this)} required/>
                                     <FormControl.Feedback />
                                 </FormGroup>        
                                 <FormGroup> 
@@ -200,7 +248,7 @@ class NewEvent extends React.Component {
                                     onSelect={this.handleSelect.bind(this)} 
                                     title={this.state.neighborhood.name} 
                                     id='neighborhoodDropDown' 
-                                    value= {this.state.neighborhood_id} > 
+                                    value= {this.state.neighborhood_id} required> 
                                     {neighborhoods}
                                     </DropdownButton>
                                     <HelpBlock>Must pick a neighborhood</HelpBlock>
@@ -216,7 +264,7 @@ class NewEvent extends React.Component {
                         </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={() => this.props.removeForm()}>Cancel</Button>
-                        <Button bsStyle="primary" onClick={this.handleSubmit.bind(this)}>Save</Button>
+                        <Button bsStyle="primary"  disabled={!this.state.formValid} onClick={this.handleSubmit.bind(this)}>Save</Button>
                         
                     </Modal.Footer>
                 </div>
@@ -227,5 +275,3 @@ class NewEvent extends React.Component {
 
 
 export default NewEvent;
-
-
