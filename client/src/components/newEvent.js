@@ -36,6 +36,7 @@ class NewEvent extends React.Component {
     // will set that state with the current event being displayed
     editForm(props){
         this.setState({
+            type: 'Edit',
             id: props.edit.id,
             name: props.edit.name,
             description: props.edit.description,
@@ -50,6 +51,7 @@ class NewEvent extends React.Component {
     // will set state when add event button is clicked
     newForm(){
         this.setState({
+            type: 'New',
             id: null,
             name: '',
             description: '',
@@ -175,7 +177,7 @@ class NewEvent extends React.Component {
             <Modal show={this.props.show}>
                 <div className="modal-container">
                     <Modal.Header>
-                        <Modal.Title>Create New Event</Modal.Title>
+                        <Modal.Title>{this.state.type} Event</Modal.Title>
                     </Modal.Header>
                         <Modal.Body>
                             <form >
