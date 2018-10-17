@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2018_10_08_180818) do
     t.string "price"
     t.integer "neighborhood_id"
     t.string "imageUrl"
+    t.integer "counter"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
