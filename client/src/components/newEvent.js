@@ -14,6 +14,7 @@ class NewEvent extends React.Component {
             end_date: '',
             avatar: '',
             price: '',
+            counter: 0,
             neighborhood: {
                 name: 'Choose Neighborhood'
         }
@@ -24,7 +25,6 @@ class NewEvent extends React.Component {
     
     // used to pass in the props to edit or clear them for the new form
     componentWillReceiveProps(nextProps){
-        console.log(nextProps)
         if(Object.keys(nextProps.edit).length > 0){
             this.editForm(nextProps)
         } else{
@@ -51,7 +51,7 @@ class NewEvent extends React.Component {
     // will set state when add event button is clicked
     newForm(){
         this.setState({
-            type: 'New',
+            type: 'Add',
             id: null,
             name: '',
             description: '',
@@ -63,6 +63,7 @@ class NewEvent extends React.Component {
             nameValid: false,
             neighborhoodValid: false,
             formValid: false,
+            counter: 0,
             neighborhood: {
                 name: 'Choose Neighborhood'
             }
@@ -117,7 +118,6 @@ class NewEvent extends React.Component {
 
 
     validateForm(){
-        debugger
         if(this.state.nameValid && this.state.neighborhoodValid){
                 this.setState({
                 formValid: true,
@@ -166,7 +166,6 @@ class NewEvent extends React.Component {
  
   
     render() {
-        console.log(this.state)
         //  creating menu select for every neighboorhood 
         let neighborhoods = this.props.neighborhoods.map(neighborhood => 
         <MenuItem onSelect={this.handleSelect.bind(this)} 
