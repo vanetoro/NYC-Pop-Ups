@@ -2,7 +2,7 @@ export default function eventsReducer(state = {
     events:  [], 
     hoods: [],
     show: false,
-    editEvent: {}
+    editEvent: {},
 }, action) {
     switch (action.type) {
         case 'FETCH_EVENTS':
@@ -11,9 +11,12 @@ export default function eventsReducer(state = {
             return{...state, show: !state.show, editEvent: {}} 
         case 'POST_EVENT':
             return{...state, events: [...state.events, action.data], show: !state.show}
-            case 'UPDATE_EVENT':
+        case 'UPDATE_EVENT':
             let removeUpdatedEvent = state.events.filter(event => event.id !== action.data.id)
-               return{...state, events: [...removeUpdatedEvent, action.data], show: !state.show}
+            return{...state, events: [...removeUpdatedEvent, action.data], show: !state.show}
+        case 'POST_LIKE':
+          let removeLikedEvent = state.events.filter(event => event.id !== action.data.id)
+           return{...state, events: [...removeLikedEvent, action.data]}
         case 'DELETE_EVENT':
             return{...state, events: [...state.events.filter(event => event.id !== action.id)]} 
         case 'EDIT_EVENT':
