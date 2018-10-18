@@ -7,26 +7,28 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import ShowEvent from '../components/showEvent'
 import '../eventsContainer.css'
 
+
 class EventsContainer extends Component {
+  
   componentDidMount() {
     this.props.getEvents()
     this.props.getHoods()
+  
   }
-
 
   render() {
     return (
       <div id="eventsContainer">
         <React.Fragment>
           <Switch>
-            <Route exact path="/" render={() => <Events getEvent={this.props.getEvent} />} />
+            <Route exact path="/" render={() => <Events getEvent={this.props.getEvent} />}/>
             <Route exact path="/:type" component={Events} events={this.props.events} />
             <Route exact path="/events/:id" component={ShowEvent} />
           </Switch>
         </React.Fragment>
         <NewEvent
           show={this.props.show}
-          postEvent={this.props.postEvent}
+          postEvent={this.props.postEvent}  
           updateEvent={this.props.updateEvent}
           removeForm={this.props.showNewEventForm}
           neighborhoods={this.props.hoods}
@@ -40,10 +42,10 @@ class EventsContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    events: state.events,
+    events: state.events.sort((a,b) => b.id - a.id),
     show: state.show,
     hoods: state.hoods,
-    edit: state.editEvent
+    edit: state.editEvent,
   }
 }
 
