@@ -46,7 +46,8 @@ export function postEvent(formData) {
             body: formData,
         })
         .then(response => response.json())
-        .then(data => dispatch({type: 'POST_EVENT', data}))
+        .then(data => {
+            dispatch({type: 'POST_EVENT', data})})
     }
 }
 export function updateEvent(formData, id) {
@@ -60,6 +61,19 @@ export function updateEvent(formData, id) {
         .then(data => dispatch({type: 'UPDATE_EVENT', data}))
     }
 }
+export function postLike(formData, id) {
+    debugger
+    return(dispatch) => {
+        dispatch({type: 'LOADING'})
+        return window.fetch(`/api/events/${id}`,{
+            method: 'PATCH',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => dispatch({type: 'POST_LIKE', data}))
+    }
+}
+
 
 
 
