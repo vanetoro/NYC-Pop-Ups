@@ -1,6 +1,7 @@
 import React from 'react'
 import { Modal, Button, FormControl, DropdownButton, MenuItem, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import '../eventsContainer.css'
+// import createFormData from '../Utils/createFormData'
 
 
 class NewEvent extends React.Component {
@@ -8,12 +9,6 @@ class NewEvent extends React.Component {
         super(props)
         this.state = {
             name: '',
-            description: '',
-            address: '',
-            start_date: '',
-            end_date: '',
-            avatar: '',
-            price: '',
             counter: 0,
             neighborhood: {
                 name: 'Choose Neighborhood'
@@ -53,13 +48,7 @@ class NewEvent extends React.Component {
         this.setState({
             type: 'Add',
             id: null,
-            name: '',
-            description: '',
-            address: '',
-            start_date: '',
-            end_date: '',
             avatar: null,
-            price: '',
             nameValid: false,
             neighborhoodValid: false,
             formValid: false,
@@ -77,12 +66,7 @@ class NewEvent extends React.Component {
         } else{
             this.setState({nameValid: false})
         }
-
-       
-        
     }
-
-    
 
     // capturing any change and setting it to the state
     handleChange(e){
@@ -99,7 +83,6 @@ class NewEvent extends React.Component {
             neighborhood: selectedNeighborhood
         }, this.validateNeighborhood)
         
-       
     }
 
     validateNeighborhood(){
@@ -151,8 +134,7 @@ class NewEvent extends React.Component {
         if(this.state.avatar ){
             formData.append('event[avatar]', this.state.avatar)
         }
-        debugger
-        // check if event is being update or created
+    
         if(!this.state.id){
             this.props.postEvent(formData)
         }else{
@@ -161,9 +143,6 @@ class NewEvent extends React.Component {
 
     }
     
-
-
- 
   
     render() {
         //  creating menu select for every neighboorhood 

@@ -3,7 +3,6 @@ import Moment from 'react-moment'
 
 
 function EventDetails(props){
-    debugger
     return(
     <React.Fragment>
         <h1>{props.event.name}</h1>

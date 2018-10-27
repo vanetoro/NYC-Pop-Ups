@@ -6,45 +6,45 @@ import { Button } from 'react-bootstrap';
 
 class Events extends Component  {
 
-    // if (!props.events) {
-    //     return null
-    // }
 
-  componentWillReceiveProps(nextProps){
-    this.setState({
-      events: nextProps.events
-    })
+  state = {
+    events: []
   }
   
-  // handleClickRecentlyAdded(e){
-  //   e.preventDefault()
-  //   let recents = this.state.events.sort((a,b) => b.id - a.id).slice(0,3)
-  //   this.setState({
-  //     events: recents
-  //   })
-  // }
-  
+ 
   handleClickUp(e){
+    console.log(this.props.events)
     e.preventDefault()
     this.setState({
-      events: this.state.events.sort((a,b) => b.counter - a.counter) 
+      events: this.props.events.splice().sort((a,b) => b.counter - a.counter) 
     })
   }
 
-  handleClickDown(e){
+  handleClickDown = (e) => {
     e.preventDefault()
     this.setState({
-      events: this.state.events.sort((a,b) => a.counter - b.counter) 
+      events: this.props.events.splice().sort((a,b) => a.counter - b.counter) 
     })
   }
    
      render(){
-      let event = this.props.events.map(event =>{
+      let events;
+
+      if(this.state.events.length < 1) {
+         events = this.props.events
+      } else {
+         events = this.state.events
+      }
+
+      let event = events.map(event =>{
               return  (
                   <div key={event.id}>
                       <Event event={event} getEvent={this.props.getEvent} counter={this.props.counter}/>
                   </div>)})
+
+       
       return (
+      
           <div className="container-fluid">
            <Button onClick={this.handleClickUp.bind(this)}>⇡</Button>
            <Button onClick={this.handleClickDown.bind(this)}>⇣</Button>
@@ -57,8 +57,6 @@ class Events extends Component  {
 
 
 const mapStateToProps = (state, ownProps) => {
-  // debugger
-    console.log(ownProps, 'inside mapStateToProps')
     let events;
     const filter = ownProps.match && ownProps.match.params.type
     if (filter === 'current') {
